@@ -1,36 +1,29 @@
-'use client';
+'use client'
+import { useTodoStore } from '../store/useTodoStore';
 
-import { TodoFormProps } from '../types';
-
-export default function TodoForm({
-  onAddtask,
-  newTask,
-  setNewTask,
-}: TodoFormProps) {
+export default function TodoForm() {
+  const { newTask, setNewTask, addTask } = useTodoStore();
+  
   return (
-    <div className="bg-slate-800 max-w-3xl mx-auto text-white px-8 rounded-lg p-8">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          onAddtask();
+    <div className="max-w-3xl mx-auto flex">
+      <input
+        type="text"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            addTask();
+          }
         }}
+        className="flex-1 bg-slate-700 text-white rounded-l-lg px-4 py-2 outline-none"
+        placeholder="Add a new task..."
+      />
+      <button
+        onClick={addTask}
+        className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-300"
       >
-        <div className="bg-slate-200 text-slate-800 rounded-lg flex justify-between px-4 py-2 gap-4">
-          <input
-            type="text"
-            placeholder="Add todo..."
-            className="w-full rounded-lg px-4 outline-none"
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-          />
-          <button
-            type="submit"
-            className="bg-slate-800 text-white px-4 py-1.5 rounded-lg transition duration-300 hover:bg-slate-800/80 shrink-0 cursor-pointer"
-          >
-            Add Todo
-          </button>
-        </div>
-      </form>
+        Add
+      </button>
     </div>
   );
 }
