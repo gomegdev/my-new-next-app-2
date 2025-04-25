@@ -5,7 +5,11 @@ export default function TodoForm() {
   const { newTask, setNewTask, addTask } = useTodoStore();
   
   return (
-    <div className="max-w-3xl mx-auto flex">
+    <form onSubmit={(e) => {
+      e.preventDefault(); 
+      addTask(); 
+    }} 
+    className="max-w-3xl mx-auto flex bg-slate-800 p-4 rounded-lg mt-8">
       <input
         type="text"
         value={newTask}
@@ -15,15 +19,15 @@ export default function TodoForm() {
             addTask();
           }
         }}
-        className="flex-1 bg-slate-700 text-white rounded-l-lg px-4 py-2 outline-none"
+        className="flex-1 text-white rounded-l-lg px-4 py-2 outline-none"
         placeholder="Add a new task..."
       />
       <button
-        onClick={addTask}
-        className="bg-blue-500 text-white px-4 py-2 rounded-r-lg hover:bg-blue-600 transition duration-300"
+        type="submit"
+        className="bg-emerald-500 text-black text-lg font-medium px-4 py-2 rounded-lg hover:bg-emerald-600 hover:text-white transition duration-300 cursor-pointer"
       >
-        Add
+        Add Task
       </button>
-    </div>
+    </form>
   );
 }
